@@ -1,0 +1,70 @@
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: dev
+
+# ---
+
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: block-pv
+#   namespace: dev
+# spec:
+#   storageClassName: manual
+#   capacity:
+#     storage: 1Gi
+#   accessModes:
+#     - ReadWriteOnce
+#   hostPath:
+#     path: /tmp/data
+#   persistentVolumeReclaimPolicy: Retain
+
+# ---
+
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: pvc
+#   namespace: dev
+# spec:
+#   storageClassName: manual
+#   accessModes:
+#     - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 1Gi
+
+# ---
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: mysql-deployment
+#   namespace: dev
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: mysql
+#   template:
+#     metadata:
+#       labels:
+#         app: mysql
+#     spec:
+#       containers:
+#       - name: mysql
+#         image: mysql:5.6
+#         env:
+#         - name: MYSQL_ROOT_PASSWORD
+#           value: dbpassword11
+#         ports:
+#         - containerPort: 3306
+#           name: mysql
+#         volumeMounts:
+#         - name: mysql-persistent-storage
+#           mountPath: /var/lib/mysql
+#       volumes:
+#       - name: mysql-persistent-storage
+#         persistentVolumeClaim:
+#           claimName: pvc # Changed from internal-pvc to pvc

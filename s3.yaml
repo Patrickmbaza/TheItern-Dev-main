@@ -1,0 +1,13 @@
+# AWSTemplateFormatVersion: 2010-09-09
+# Description: create an s3 bucket
+
+
+# Resources: 
+#   s3Bucket:
+#     Type: AWS::S3::Bucket
+#     Properties: 
+#       AccessControl: Private
+#       BucketName: mbazas3bucket
+#       Tags:
+#         - Key: key
+#           Value:  mbazas3bucket

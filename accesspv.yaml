@@ -1,0 +1,17 @@
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: access-pv
+#   namespace: dev
+# spec:
+#   containers:
+#     - name: access-pv
+#       image: nginx
+#       command: ["sleep", "infinity"]
+#       volumeMounts:
+#       - mountPath: "/mnt/data"
+#         name: data-volume
+#   volumes:
+#   - name: data-volume
+#     persistentVolumeClaim:
+#       claimName: pvc

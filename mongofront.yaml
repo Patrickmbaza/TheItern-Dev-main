@@ -1,0 +1,49 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: springapp
+#   namespace: dev
+# spec:
+#   selector:
+#     matchLabels:
+#       app: springapp
+#   strategy:
+#     type: Recreate
+#   replicas: 3
+#   template:
+#     metadata:
+#       name: springapp
+#       labels:
+#         app: springapp
+#     spec:
+#       containers:
+#       - name: springapp
+#         image: acadalearning/spring-boot-mongo
+#         ports:
+#         - containerPort: 8080
+#         env:
+#         - name: MONGO_DB_USERNAME
+#           value: devdb
+#         - name: MONGO_DB_PASSWORD
+#           value: devdb@123
+#         - name: MONGO_DB_HOSTNAME
+#           value:  mongo
+
+# ---
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: springapp
+#   namespace: dev
+# spec:
+#   selector:
+#     app: springapp
+#   ports:
+#   - port: 80
+#     targetPort: 8080
+#     nodePort: 31000
+#   type: NodePort
+  
+
+

@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+ name: block-pv
+spec:
+ storageClassName: manual
+ capacity: 
+  storage: 1Gi
+ accessModes:
+  - ReadWriteOnce
+ hostPath:
+  path: /tmp/data
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+ name: pod-pvc
+spec:
+ containers:
+  - image: nginx
+    name: c1
+    volumeMounts:
+     - mountPath: "/data"
+       name: my-volume
+ volumes:
+  - name: my-volume
+    persistentVolumeClaim:
+     claimName: pvc
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+ name: pod-pvc
+spec:
+ containers:
+  - image: nginx
+    name: c1
+    volumeMounts:
+     - mountPath: "/data"
+       name: my-volume
+ volumes:
+  - name: my-volume
+    persistentVolumeClaim:
+     claimName: pvc
+
