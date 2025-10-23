@@ -1,7 +1,8 @@
 .terraform/
 .terraform.lock.hcl
-.PatrickKP.pem
+ PatrickKP.pem
 .terraform.tfstate
 .terraform.tfstate.backup
 *.tfvars
 *.tfvars.json
+awscliv2.zip
